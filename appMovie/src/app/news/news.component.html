@@ -1,0 +1,224 @@
+<div class="card mb-3" *ngFor="let item of newsarray let i =index ">
+  <div class="row">
+
+
+
+    <div class="col-md-9  d-flex flex-column text-left ng-star-inserted">
+      <div class="card-body d-flex flex-column">
+
+
+        <div class="card mb-3" *ngFor="let item2 of movies " style="border: 0px;">
+
+          <div *ngIf="item2.id==item.movieId;">
+
+            <img src="{{item2.imageUrl}}" class="img-fluid rounded-start">
+
+            <h2 class="card-title">
+              {{item.title}}
+            </h2>
+
+            <p class="card-text">
+              {{item.author}}
+            </p>
+
+            <p class="card-text">
+              {{item.movieId}}
+            </p>
+
+            <p class="card-text">
+              {{item.createdDate | date: 'short'}}
+            </p>
+
+            <button class="mt-auto btn btn-danger btn-block" (click)="deletetoList(item)"> Delete to List</button>
+
+
+
+
+            <div class="card mb-9" style="border: 0px; margin: auto;">
+
+
+              <form>
+
+                <br>
+
+                <div class="form-group">
+                  <input #title="ngModel" type="text" minlength="2" required class="form-control item" name="title"
+                    id="title" placeholder="title" ngModel>
+
+                  <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+                    <div *ngIf="title?.errors?.['required']">
+                      title is required
+                    </div>
+                    <div *ngIf="title?.errors?.['minlength']">
+                      title is invalid
+                    </div>
+                  </div>
+
+
+                <br>
+
+                </div>
+                <div class="form-group">
+                  <input #author="ngModel" type="text" required class="form-control item" name="author" id="author"
+                    placeholder="author" ngModel>
+
+                  <div class="alert alert-danger" *ngIf="author.touched && author.invalid">
+                    <div *ngIf="author?.errors?.['required']">
+                      author is required
+                    </div>
+                    <div *ngIf="author?.errors?.['minlength']">
+                      author is invalid
+                    </div>
+                  </div>
+
+
+                  <br>
+
+                </div>
+                <div class="form-group">
+                  <input #movieId="ngModel" min="1" max="8" type="number" required class="form-control item" name="movieId"
+                    id="movieId" placeholder="movieId" ngModel>
+
+                  <div class="alert alert-danger" *ngIf="movieId.touched && movieId.invalid">
+                    <div *ngIf="movieId?.errors?.['required']">
+                      movieId is required
+                    </div>
+                    <div *ngIf="movieId?.errors?.['min']">
+                      movieId must be <= 8 </div>
+                    </div>
+
+
+                <br>
+
+                  </div>
+                  <div class="form-group">
+                    <input #createdDate="ngModel" type="date" min='1900-01-01' required class="form-control item"
+                      name="createdDate" id="createdDate" placeholder="createdDate" ngModel>
+
+
+                    <div class="alert alert-danger" *ngIf="createdDate.touched && createdDate.invalid">
+                      <div *ngIf="createdDate?.errors?.['required']">
+                        createdDate is required
+                      </div>
+                      <div *ngIf="createdDate?.errors?.['min']">
+                        createdDate must be >= 1900-01-01
+                      </div>
+                    </div>
+
+
+
+                <br>
+                  </div>
+
+
+                  <br>
+
+                  <div class="form-group">
+                    <button type="button" class="btn btn-warning create-account"
+                      (click)="updateitem(item, title.value,author.value,movieId.value,createdDate.value)">Update
+                      List</button>
+                  </div>
+              </form>
+            </div>
+
+          </div>
+
+
+
+          <!-- <button class="mt-auto btn btn-outline-primary btn-block"> Details</button> -->
+          <!-- <button class="mt-auto btn btn-primary btn-block" (click)="addtoList($event,item)"> Add to List</button> -->
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+<div class="card mb-9" style="border: 0px; margin: auto;">
+
+
+  <form>
+
+    <br>
+
+    <div class="form-group">
+      <input #title="ngModel" type="text" minlength="2" required class="form-control item" name="title"
+        id="title" placeholder="title" ngModel>
+
+      <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+        <div *ngIf="title?.errors?.['required']">
+          title is required
+        </div>
+        <div *ngIf="title?.errors?.['minlength']">
+          title is invalid
+        </div>
+      </div>
+
+
+    <br>
+
+    </div>
+    <div class="form-group">
+      <input #author="ngModel" type="text" required class="form-control item" name="author" id="author"
+        placeholder="author" ngModel>
+
+      <div class="alert alert-danger" *ngIf="author.touched && author.invalid">
+        <div *ngIf="author?.errors?.['required']">
+          author is required
+        </div>
+        <div *ngIf="author?.errors?.['minlength']">
+          author is invalid
+        </div>
+      </div>
+
+
+      <br>
+
+    </div>
+    <div class="form-group">
+      <input #movieId="ngModel" min="1" max="8" type="number" required class="form-control item" name="movieId"
+        id="movieId" placeholder="movieId" ngModel>
+
+      <div class="alert alert-danger" *ngIf="movieId.touched && movieId.invalid">
+        <div *ngIf="movieId?.errors?.['required']">
+          movieId is required
+        </div>
+        <div *ngIf="movieId?.errors?.['min']">
+          movieId must be <= 8 </div>
+        </div>
+
+
+    <br>
+
+      </div>
+      <div class="form-group">
+        <input #createdDate="ngModel" type="date" min='1900-01-01' required class="form-control item"
+          name="createdDate" id="createdDate" placeholder="createdDate" ngModel>
+
+
+        <div class="alert alert-danger" *ngIf="createdDate.touched && createdDate.invalid">
+          <div *ngIf="createdDate?.errors?.['required']">
+            createdDate is required
+          </div>
+          <div *ngIf="createdDate?.errors?.['min']">
+            createdDate must be >= 1900-01-01
+          </div>
+        </div>
+
+
+
+    <br>
+      </div>
+
+
+      <br>
+
+      <div class="form-group">
+        <button id="addbtn" type="button" class="btn btn-success create-account"
+          (click)="Additem(title.value,author.value,movieId.value,createdDate.value)">Add
+          List</button>
+      </div>
+  </form>
+</div>
